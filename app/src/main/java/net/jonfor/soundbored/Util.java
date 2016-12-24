@@ -4,10 +4,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by Jonfor on 10/9/2016.
  */
@@ -36,28 +32,5 @@ class Util {
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
         return px / ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
-    }
-
-    static List<Integer> getRawResources() {
-        final R.raw rawResources = new R.raw();
-        final Class<R.raw> c = R.raw.class;
-        final Field[] fields = c.getDeclaredFields();
-        List<Integer> resourceIDs = new ArrayList<>();
-
-        for (Field resourceField : fields) {
-            /*
-             * Skip the argument if it isn't an int. This means it isn't one of the sound resources.
-             * https://stackoverflow.com/questions/36235608/public-static-runtime-incremental-change-android
-             */
-            if (!resourceField.getType().isAssignableFrom(Integer.TYPE)) {
-                continue;
-            }
-            try {
-                resourceIDs.add(resourceField.getInt(rawResources));
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
-        return resourceIDs;
     }
 }

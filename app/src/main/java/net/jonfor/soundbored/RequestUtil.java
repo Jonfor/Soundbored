@@ -1,9 +1,6 @@
 package net.jonfor.soundbored;
 
-import android.content.ContentResolver;
 import android.content.Context;
-import android.net.Uri;
-import android.webkit.MimeTypeMap;
 
 import java.io.File;
 
@@ -18,7 +15,6 @@ import okhttp3.Request;
 
 public class RequestUtil {
 
-    private static final String webHost = "https://www.jonfor.net";
     private static OkHttpClient client;
 
     private static OkHttpClient getOkHttpClient(Context context) {
@@ -48,8 +44,8 @@ public class RequestUtil {
     }
 
     public static void getAllSounds(Context context, Callback callback) {
-        String url = webHost + "/api/sounds";
-        Request request = new okhttp3.Request.Builder()
+        String url = BuildConfig.SITE_URL + "/api/sounds";
+        Request request = new Request.Builder()
                 .url(url)
                 .build();
 
@@ -65,18 +61,4 @@ public class RequestUtil {
 //
 //        getOkHttpClient(context).newCall(request).enqueue(callback);
 //    }
-
-    private String getMimeType(Context context, Uri uri) {
-        String mimeType;
-        if (uri.getScheme().equals(ContentResolver.SCHEME_CONTENT)) {
-            ContentResolver cr = context.getApplicationContext().getContentResolver();
-            mimeType = cr.getType(uri);
-        } else {
-            String fileExtension = MimeTypeMap.getFileExtensionFromUrl(uri
-                    .toString());
-            mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(
-                    fileExtension.toLowerCase());
-        }
-        return mimeType;
-    }
 }

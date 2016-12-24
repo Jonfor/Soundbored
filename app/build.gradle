@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "24.0.3"
+    buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "net.jonfor.soundbored"
         minSdkVersion 21
@@ -16,6 +16,10 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "SITE_URL", '"https://www.jonfor.net"'
+        }
+        debug {
+            buildConfigField "String", "SITE_URL", '"https://www.jonfor.net"'
         }
     }
 }
