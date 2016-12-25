@@ -1,17 +1,22 @@
 package net.jonfor.soundbored;
 
+import android.graphics.drawable.Drawable;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -39,6 +44,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        FrameLayout frameLayout = (FrameLayout) findViewById(R.id.layout);
+        Drawable portrait = ContextCompat.getDrawable(this, R.drawable.genji2_compress);
+        Drawable landscape = ContextCompat.getDrawable(this, R.drawable.genji_landscape);
+
+        WindowManager window = (WindowManager) getSystemService(WINDOW_SERVICE);
+        Display display = window.getDefaultDisplay();
+        int num = display.getRotation();
+        if (num == 0) {
+            frameLayout.setBackground(portrait);
+        } else if (num == 1 || num == 3) {
+            frameLayout.setBackground(landscape);
+        } else {
+            frameLayout.setBackground(portrait);
+        }
 
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
