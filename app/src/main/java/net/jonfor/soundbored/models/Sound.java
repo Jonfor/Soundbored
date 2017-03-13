@@ -1,7 +1,5 @@
 package net.jonfor.soundbored.models;
 
-import android.net.Uri;
-
 import net.jonfor.soundbored.BuildConfig;
 
 import java.io.UnsupportedEncodingException;
@@ -13,7 +11,7 @@ import java.net.URLDecoder;
 
 public class Sound {
     private static final String UTF_8 = "UTF-8";
-    private Uri soundPath;
+    private String soundPath;
     private String soundName;
 
     public Sound(String soundName) {
@@ -23,13 +21,13 @@ public class Sound {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-
+        // The name is everything without the extension
         this.soundName = parsedName.substring(0, parsedName.lastIndexOf('.'));
 
-        this.soundPath = Uri.parse(BuildConfig.SITE_URL + "/public/sounds/" + soundName);
+        this.soundPath = BuildConfig.SITE_URL + "/public/sounds/" + soundName;
     }
 
-    public Uri getSoundPath() {
+    public String getSoundPath() {
         return soundPath;
     }
 

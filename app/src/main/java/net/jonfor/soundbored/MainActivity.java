@@ -99,20 +99,25 @@ public class MainActivity extends AppCompatActivity {
         for (JsonElement soundEle : soundsArr) {
             Sound sound = APIParsers.createSound(soundEle.getAsString());
             sounds.add(sound);
-            Button button = createButton(sound);
+            final Button button = createButton(sound);
             contentMain.addView(button);
             final MediaPlayer mediaPlayer = new MediaPlayer();
             mediaPlayer.setAudioAttributes(audioAttributes);
             try {
-                mediaPlayer.setDataSource(this, sound.getSoundPath());
+                mediaPlayer.setDataSource(sound.getSoundPath());
                 mediaPlayer.prepareAsync();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mediaPlayer.start();
+
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                public void onPrepared(MediaPlayer player) {
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mediaPlayer.start();
+                        }
+                    });
                 }
             });
         }
