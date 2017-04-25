@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getAllSounds() {
-        RequestUtil.getAllSounds(MainActivity.this, new Callback() {
+        RequestUtil.getAllSoundNames(MainActivity.this, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();

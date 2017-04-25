@@ -43,7 +43,7 @@ public class RequestUtil {
         return null;
     }
 
-    public static void getAllSounds(Context context, Callback callback) {
+    public static void getAllSoundNames(Context context, Callback callback) {
         String url = BuildConfig.SITE_URL + "/api/sounds";
         Request request = new Request.Builder()
                 .url(url)
