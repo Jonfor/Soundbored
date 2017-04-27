@@ -43,10 +43,18 @@ public class RequestUtil {
         return null;
     }
 
-    public static void getAllSoundNames(Context context, Callback callback) {
+    public static void getAllSoundsInfo(Context context, Callback callback) {
         String url = BuildConfig.SITE_URL + "/api/sounds";
         Request request = new Request.Builder()
                 .url(url)
+                .build();
+
+        getOkHttpClient(context).newCall(request).enqueue(callback);
+    }
+
+    public static void getSound(Context context, Callback callback, String soundPath) {
+        Request request = new Request.Builder()
+                .url(soundPath)
                 .build();
 
         getOkHttpClient(context).newCall(request).enqueue(callback);
