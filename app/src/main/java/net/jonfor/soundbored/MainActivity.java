@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.CustomEvent;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -171,13 +173,14 @@ public class MainActivity extends AppCompatActivity {
         contentMain.addView(button);
 
         final int soundId = soundPool.load(sound.getSoundFile().getPath(), 1);
-        button.setOnClickListener(setSoundButtonClickListener(soundId));
+        button.setOnClickListener(setSoundButtonClickListener(soundId, sound));
     }
 
-    private View.OnClickListener setSoundButtonClickListener(final int soundId) {
+    private View.OnClickListener setSoundButtonClickListener(final int soundId, final Sound sound) {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Answers.getInstance().logCustom(new CustomEvent("Played " + sound.getSoundName()));
                 if (soundPool.play(soundId, 1, 1, 0, 0, 1) == 0) {
                     Log.e("Err", "ERROR");
                 }
