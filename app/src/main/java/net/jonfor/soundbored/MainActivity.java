@@ -73,16 +73,18 @@ public class MainActivity extends AppCompatActivity {
                 .setMaxStreams(10)
                 .build();
 
+        //TODO Figure out caching and stuff
         sounds = Util.getSoundsLocally(context);
-        if (sounds.size() == 0) {
-            Log.d("Debug", "No local sounds. Retrieving from server.");
-            getAllSoundsInfo();
-        } else {
-            Log.d("Debug", "Sounds are stored locally.");
-            for (Sound sound : sounds) {
-                initSoundButton(sound);
-            }
-        }
+        getAllSoundsInfo();
+//        if (sounds.size() == 0) {
+//            Log.d("Debug", "No local sounds. Retrieving from server.");
+//            getAllSoundsInfo();
+//        } else {
+//            Log.d("Debug", "Sounds are stored locally.");
+//            for (Sound sound : sounds) {
+//                initSoundButton(sound);
+//            }
+//        }
     }
 
     private Button createButton(Sound sound) {
